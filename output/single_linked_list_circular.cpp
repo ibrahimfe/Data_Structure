@@ -8,7 +8,7 @@ struct Node{
 
 struct Node *insertInEmpty(struct Node *last, int new_data) {
     if (last != NULL) {
-        return last
+        return last;
     }
 
     struct Node *temp = new Node;
@@ -68,7 +68,7 @@ struct Node *insertAfter(struct Node *last, int new_data, int after_item) {
                 return last;
             }
         } else if (p == last && p -> data != after_item) {
-            cout << "The Node With Data " << after_item << "is not present in the list"
+            cout << "The Node With Data " << after_item << "is not present in the list";
             return last; 
         }
         p = p -> next;
@@ -110,7 +110,7 @@ void deleteNode(Node** head, int key) {
     Node *last = *head, *d;
 
     // Jika key adalah head
-    if ((*head) -> next == key) {
+    if ((*head)->next->data == key) {
         while (last -> next != *head) { // mencari last node pada list
             last = last -> next;
 
@@ -132,6 +132,23 @@ void deleteNode(Node** head, int key) {
         free(d);
         cout << "\nSLLC setelah penghapusan " << key << " beranggotakan : ";
         showList(last);
+    } else {
+        cout << "Node dengan data "<< key << " tidak ditemukan dalam list" << endl;
     }
     }
+}
+
+// Main Program
+
+int main() {
+    struct Node *last = NULL;
+
+    last = insertInEmpty(last, 30);
+    last = insertAtBegin(last, 20);
+    last = insertAtBegin(last, 120);
+    last = insertAtEnd(last, 40);
+    last = insertAtEnd(last, 10);
+    last = insertAfter(last, 50, 30);
+
+    showList(last);
 }
