@@ -138,12 +138,12 @@ void deleteNode(Node** head, int key) {
     }
 }
 
-bool findElement(struct Node *head, int key) {
+bool findElement(Node *head, int key) {
     if (head == NULL) {
         return false; // List is empty
     }
 
-    Node* current = head;
+    Node *current = head;
 
     do {
         if (current->data == key) {
