@@ -34,16 +34,15 @@ struct Node *insertAtBegin(struct Node *last, int new_data) {
     return last;
 }
 struct Node *insertAtEnd(struct Node *last, int new_data) {
-    if(last != NULL) {
+    if (last != NULL) {
         return insertInEmpty(last, new_data);
     }
 
-    struct Node *temp = new Node;
-
-    temp -> data = new_data;
-    temp -> next = last -> next;
-    last -> next = temp;
-    last = temp;
+    struct Node* temp = new Node;
+    temp->data = new_data;
+    temp->next = last->next;
+    last->next = temp;
+    last = temp; // Update last to the newly inserted node
 
     return last;
 }
@@ -73,6 +72,7 @@ struct Node *insertAfter(struct Node *last, int new_data, int after_item) {
         }
         p = p -> next;
     }while (p != last -> next);
+    return last;
 }
 void showList(struct Node *last) {
     struct Node *p;
@@ -138,15 +138,88 @@ void deleteNode(Node** head, int key) {
     }
 }
 
+bool findElement(struct Node *head, int key) {
+    if (head == NULL) {
+        return false; // List is empty
+    }
+
+    Node* current = head;
+
+    do {
+        if (current->data == key) {
+            return true; // Key found
+        }
+        current = current->next;
+    } while (current != head);
+
+    return false; // Key not found
+}
+
+
 // Main Program
 
 int main() {
     struct Node *last = NULL;
 
+    int program = 1;
+    int angka, setelah_angka;
+
+    while (program) {
+        cout << "=================================" << endl;
+        cout << "   Single Linked List Circular" << endl;
+        cout << "=================================" << endl << endl;;
+        cout << "Apa Yang Ingin Kamu Lakukan ?" << endl;
+        cout << "1. Menampilkan Isi List " << endl;
+        cout << "2. Memasukkan Elemen ke dalam List yang kosong " << endl;
+        cout << "3. Memasukkan Elemenn ke awal List " << endl;
+        cout << "4. Memasukkan Elemen ke Akhir List" << endl;
+        cout << "5. Memasukkan Elemen Setelah Elemen tertentu " << endl;
+        cout << "6. Menghapus Node " << endl;
+        cout << "7. Keluar Dari Program" << endl;
+        cin >> program;
+
+        switch (program)
+        {
+        case 1:
+            showList(last);
+            break;
+        case 2:
+            cout << "Ketik Angka Yang Ingin Dimasukkan di List : ";
+            cin >> angka;
+            last = insertInEmpty(last,angka);
+            break;
+        case 3:
+            cout << "Ketik Angka Yang ingin dimasukkan di List : ";
+            cin >> angka;
+            last = insertAtBegin(last, angka);
+            break;
+        case 4:
+            cout << "Ketik angka yang ingin dimasukkan di list : ";
+            cin >> angka;
+            last = insertAtEnd(last, angka);
+            break;
+        case 5:
+            cout << "Ketik angka yang ingin dimasukkan di dalam list : ";
+            cin >> angka;
+            cout << "Ketik angka di dalam list untuk menyisipkan elemen : ";
+            cin >> setelah_angka;
+            last = insertAfter(last, angka, setelah_angka);
+            break;
+        case 6:
+            cout << "Ketik angka yang akan dihapus : ";
+            cin >> angka;
+            deleteNode(&last, angka);
+            break;
+        default:
+            cout << "Masukkan angka yang sesuai di menu !!";
+            break;
+        }
+    }
+
     last = insertInEmpty(last, 30);
     last = insertAtBegin(last, 20);
     last = insertAtBegin(last, 120);
-    last = insertAtEnd(last, 40);
+    last = insertAtEnd(last, 99);
     last = insertAtEnd(last, 10);
     last = insertAfter(last, 50, 30);
 
