@@ -133,9 +133,9 @@ void hapusBelakang()
     head->data--;
     cout << d << " Terhapus" << endl;
 }
-void updateNode(Node *head, int position, int newData)
+void updateNode(TNode *head, int position, int newData)
 {
-    Node *temp = head;
+    TNode *temp = head;
     int count = 1;
     while (temp != nullptr && count < position)
     {
