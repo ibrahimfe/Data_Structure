@@ -1,78 +1,84 @@
 #include <iostream>
 using namespace std;
 
-typedef struct TNode
+struct TNode
 {
     int data;
     TNode *next;
     TNode *prev;
 };
+
 TNode *head;
 
 void init()
 {
-    head = NULL;
+    head = new TNode;
+    head->data = 0;
+    head->next = NULL;
+    head->prev = NULL;
 }
-int isEmpty()
+
+bool isEmpty()
 {
-    if (head == NULL)
-        return 1;
-    else
-        return 0;
+    return head->next == NULL;
 }
+
 void tampil()
 {
-    TNode *bantu;
-    bantu = head;
-    if (isEmpty() == 0)
+    if (isEmpty())
     {
-        while (bantu != NULL)
-        {
-            cout << bantu->data << endl;
-            bantu = bantu->next;
-        }
-        cout << endl;
-    }
-    else
         cout << "Masih Kosong" << endl;
+        return;
+    }
+
+    TNode *bantu = head->next;
+    while (bantu != NULL)
+    {
+        cout << bantu->data << endl;
+        bantu = bantu->next;
+    }
+    cout << endl;
 }
+
 void insertDepan(int databaru)
 {
-    TNode *baru;
-    baru = new TNode;
+    TNode *baru = new TNode;
     baru->data = databaru;
     baru->next = NULL;
     baru->prev = NULL;
-    if (isEmpty() == 1)
+
+    if (isEmpty())
     {
-        head = baru;
-        head->next = NULL;
-        head->prev = NULL;
+        head->next = baru;
+        baru->prev = head;
     }
     else
     {
-        baru->next = head;
-        head->prev = baru;
-        head = baru;
+        baru->next = head->next;
+        head->next->prev = baru;
+        head->next = baru;
+        baru->prev = head;
     }
+
+    head->data++;
     cout << "Data Masuk" << endl;
 }
+
 void insertBelakang(int databaru)
 {
-    TNode *baru, *bantu;
-    baru = new TNode;
+    TNode *baru = new TNode;
     baru->data = databaru;
     baru->next = NULL;
     baru->prev = NULL;
-    if (isEmpty() == 1)
+
+    if (isEmpty())
     {
-        head = baru;
-        head->next = NULL;
-        head->prev = NULL;
+        head->next = baru;
+        baru->prev = head;
     }
     else
     {
-        bantu = head;
+        TNode *bantu = head->next;
         while (bantu->next != NULL)
         {
             bantu = bantu->next;
@@ -80,72 +86,104 @@ void insertBelakang(int databaru)
         bantu->next = baru;
         baru->prev = bantu;
     }
-    cout << "Data masuk " << endl;
+
+    head->data++;
+    cout << "Data masuk" << endl;
 }
+
 void hapusDepan()
 {
-    TNode *hapus;
-    int d;
-    if (isEmpty() == 0)
+    if (isEmpty())
     {
-        if (head->next != NULL)
-        {
-            hapus = head;
-            d = hapus->data;
-            head = head->next;
-            head->prev = NULL;
-            delete hapus;
-        }
-        else
-        {
-            d = head->data;
-            head = NULL;
-        }
-        cout << d << " Terhapus" << endl;
-    }
-    else
         cout << "Masih Kosong" << endl;
+        return;
+    }
+
+    TNode *hapus = head->next;
+    int d = hapus->data;
+    head->next = hapus->next;
+    if (hapus->next != NULL)
+    {
+        hapus->next->prev = head;
+    }
+    delete hapus;
+
+    head->data--;
+    cout << d << " Terhapus" << endl;
 }
+
 void hapusBelakang()
 {
-    TNode *hapus;
-    int d;
-    if (isEmpty() == 0)
+    if (isEmpty())
     {
-        if (head->next != NULL)
-        {
-            hapus = head;
-            while (hapus->next != NULL)
-            {
-                hapus = hapus->next;
-            }
-            d = hapus->data;
-            hapus->prev->next = NULL;
-            delete hapus;
-        }
-        else
-        {
-            d = head->data;
-            head = NULL;
-        }
-        cout << d << " terhapus\n";
+        cout << "Masih Kosong" << endl;
+        return;
+    }
+
+    TNode *hapus = head->next;
+    while (hapus->next != NULL)
+    {
+        hapus = hapus->next;
+    }
+
+    int d = hapus->data;
+    hapus->prev->next = NULL;
+    delete hapus;
+
+    head->data--;
+    cout << d << " Terhapus" << endl;
+}
+void updateNode(Node *head, int position, int newData)
+{
+    Node *temp = head;
+    int count = 1;
+    while (temp != nullptr && count < position)
+    {
+        temp = temp->next;
+        count++;
+    }
+    if (temp != nullptr)
+    {
+        temp->data = newData;
     }
     else
-        cout << "Masih kosong\n";
+    {
+        std::cout << "Invalid position!" << std::endl;
+    }
 }
+
 void clear()
 {
-    TNode *bantu, *hapus;
-    bantu = head;
+    TNode *bantu = head->next;
     while (bantu != NULL)
     {
-        hapus = bantu;
+        TNode *hapus = bantu;
         bantu = bantu->next;
         delete hapus;
     }
-    head = NULL;
+
+    head->next = NULL;
+    head->data = 0;
 }
+int countElements(TNode *head)
+{
+    TNode *temp = head;
+    int count = 0;
+    while (temp != nullptr)
+    {
+        count++;
+        temp = temp->next;
+    }
+    return count;
+}
+
 int main()
 {
     init();
+    insertDepan(10);
+    insertBelakang(9);
+    tampil();
+    cout << "Panjang List adalah " << countElements(head) << endl;
+
+    return 0;
 }
