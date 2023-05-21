@@ -148,8 +148,27 @@ void updateNode(TNode *head, int position, int newData)
     }
     else
     {
-        std::cout << "Invalid position!" << std::endl;
+        cout << "Invalid position!" << std::endl;
     }
+}
+void displayReverse(TNode *head)
+{
+    if (head == nullptr)
+    {
+        return;
+    }
+    TNode *temp = head;
+    while (temp->next != nullptr)
+    {
+        temp = temp->next;
+    }
+    cout << "List in reverse order: ";
+    while (temp != nullptr)
+    {
+        cout << temp->data << " ";
+        temp = temp->prev;
+    }
+    cout << endl;
 }
 
 void clear()
