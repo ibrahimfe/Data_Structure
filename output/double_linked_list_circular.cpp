@@ -163,7 +163,52 @@ void clear()
 int main()
 {
     init();
-    insertDepan(10);
-    insertBelakang(20);
-    tampil();
+    int program = 1;
+    int angka, setelah_angka;
+
+    while (program)
+    {
+        cout << "\n=================================" << endl;
+        cout << "   Double Linked List Circular" << endl;
+        cout << "=================================" << endl
+             << endl;
+        ;
+        cout << "Apa Yang Ingin Kamu Lakukan ?" << endl;
+        cout << "1. Menampilkan Isi List " << endl;
+        cout << "2. Memasukkan Elemen di awal list " << endl;
+        cout << "3. Memasukkan Elemen di akhir list" << endl;
+        cout << "4. Menghapus Elemen di awal list" << endl;
+        cout << "5. Menghapus Elemen di akhir list" << endl;
+        cout << "6. Keluar Dari Program" << endl;
+        cout << "Pilihan : ";
+        cin >> program;
+
+        switch (program)
+        {
+        case 1:
+            tampil();
+            break;
+        case 2:
+            cout << "Ketik Angka Yang Ingin Dimasukkan di List : ";
+            cin >> angka;
+            insertDepan(angka);
+            break;
+        case 3:
+            cout << "Ketik Angka Yang ingin dimasukkan di List : ";
+            cin >> angka;
+            insertBelakang(angka);
+            break;
+        case 4:
+            hapusDepan();
+            break;
+        case 5:
+            hapusBelakang();
+            break;
+        case 6:
+            return 0;
+        default:
+            cout << "Masukkan angka yang sesuai di menu !!";
+            break;
+        }
+    }
 }
