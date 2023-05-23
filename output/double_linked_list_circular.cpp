@@ -159,6 +159,51 @@ void clear()
         head = NULL;
     }
 }
+int searchList(TNode *start, int search)
+{
+    // Declare the temp variable
+    TNode *temp = start;
+
+    // Declare other control variable for the searching
+    int count = 0, flag = 0, value;
+
+    // If start is NULL return -1
+    if (temp == NULL)
+        return -1;
+    else
+    {
+        // Move the temp pointer until, temp->next doesn't move start address (Circular Fashion)
+        while (temp->next != start)
+        {
+            // Increment count for location
+            count++;
+            // If it is found raise the flag and break the loop
+            if (temp->data == search)
+            {
+                flag = 1;
+                count--;
+                break;
+            }
+            // Increment temp pointer
+            temp = temp->next;
+        }
+        // Check whether last element in the list content the value if contain, raise a flag and increment count
+        if (temp->data == search)
+        {
+            count++;
+            flag = 1;
+        }
+
+        // If flag is true, then element found, else not
+        if (flag == 1)
+            cout << "\n"
+                 << search << " found at location " << count << endl;
+        else
+            cout << "\n"
+                 << search << " not found" << endl;
+    }
+    return 0;
+}
 
 int main()
 {
@@ -179,7 +224,9 @@ int main()
         cout << "3. Memasukkan Elemen di akhir list" << endl;
         cout << "4. Menghapus Elemen di awal list" << endl;
         cout << "5. Menghapus Elemen di akhir list" << endl;
-        cout << "6. Keluar Dari Program" << endl;
+        cout << "6. Menghapus Seluruh Elemen di list" << endl;
+        cout << "7. Mencari Elemen di dalam list" << endl;
+        cout << "8. Keluar Dari Program" << endl;
         cout << "Pilihan : ";
         cin >> program;
 
@@ -205,10 +252,19 @@ int main()
             hapusBelakang();
             break;
         case 6:
+            clear();
+            break;
+        case 7:
+            cout << "masukkang value yang ingin kamu cari :";
+            cin >> angka;
+            searchList(head, angka);
+            break;
+        case 8:
             return 0;
         default:
             cout << "Masukkan angka yang sesuai di menu !!";
             break;
         }
     }
+    return 0;
 }
