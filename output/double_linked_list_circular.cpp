@@ -144,6 +144,43 @@ void hapusBelakang()
     else
         cout << "Masih kosong\n";
 }
+
+void deleteElement(TNode **head, int value)
+{
+    if (*head == NULL)
+        return;
+
+    TNode *current = *head;
+    TNode *toDelete = NULL;
+
+    do
+    {
+        if (current->data == value)
+        {
+            toDelete = current;
+            break;
+        }
+        current = current->next;
+    } while (current != *head);
+
+    if (toDelete == NULL)
+    {
+        printf("Element %d not found in the list.\n", value);
+        return;
+    }
+
+    if (toDelete == *head)
+        *head = toDelete->next;
+
+    if (toDelete->next != toDelete)
+        toDelete->next->prev = toDelete->prev;
+
+    if (toDelete->prev != toDelete)
+        toDelete->prev->next = toDelete->next;
+
+    free(toDelete);
+}
+
 void clear()
 {
     TNode *bantu, *hapus;
@@ -172,7 +209,8 @@ int searchList(TNode *start, int search)
         return -1;
     else
     {
-        // Move the temp pointer until, temp->next doesn't move start address (Circular Fashion)
+        // Move the temp pointer until, temp->next
+        // doesn't move start address (Circular Fashion)
         while (temp->next != start)
         {
             // Increment count for location
@@ -187,7 +225,8 @@ int searchList(TNode *start, int search)
             // Increment temp pointer
             temp = temp->next;
         }
-        // Check whether last element in the list content the value if contain, raise a flag and increment count
+        // Check whether last element in the list content
+        // the value if contain, raise a flag and increment count
         if (temp->data == search)
         {
             count++;
@@ -204,7 +243,40 @@ int searchList(TNode *start, int search)
     }
     return 0;
 }
+void reverseList(TNode *head)
+{
+    if (head == NULL)
+        return;
 
+    TNode *current = head;
+    TNode *temp = NULL;
+
+    do
+    {
+        temp = current->prev;
+        current->prev = current->next;
+        current->next = temp;
+        current = current->prev;
+    } while (current != head);
+
+    head = temp->prev; // Update the new head
+}
+
+void printList(TNode *head)
+{
+    if (head == NULL)
+        return;
+
+    TNode *current = head;
+
+    do
+    {
+        printf("%d ", current->data);
+        current = current->next;
+    } while (current != head);
+
+    printf("\n");
+}
 int main()
 {
     init();
@@ -226,7 +298,9 @@ int main()
         cout << "5. Menghapus Elemen di akhir list" << endl;
         cout << "6. Menghapus Seluruh Elemen di list" << endl;
         cout << "7. Mencari Elemen di dalam list" << endl;
-        cout << "8. Keluar Dari Program" << endl;
+        cout << "8. Membalikkan urutan dari list" << endl;
+        cout << "9. Menghapus Elemen tertentu di dalam list" << endl;
+        cout << "10. Keluar Dari Program" << endl;
         cout << "Pilihan : ";
         cin >> program;
 
@@ -260,6 +334,15 @@ int main()
             searchList(head, angka);
             break;
         case 8:
+            reverseList(head);
+            printList(head);
+            break;
+        case 9:
+            cout << "Masukkan angka yang ingin dihapus : ";
+            cin >> angka;
+            deleteElement(&head, angka);
+            break;
+        case 10:
             return 0;
         default:
             cout << "Masukkan angka yang sesuai di menu !!";
