@@ -27,6 +27,16 @@ int f(int n)
         return n * f(n - 1);
 }
 
+int FPB(int m, int n)
+{
+    if (m == 0)
+        return n;
+    else if (m < n)
+        return FPB(n, m);
+    else
+        return FPB(m % n, n);
+}
+
 int main()
 {
     int angka;
@@ -35,4 +45,9 @@ int main()
 
     cout << fib(angka) << endl;
     cout << f(angka) << endl;
+
+    cout << "Masukkan Angka yang kedua :";
+    int angka2;
+    cin >> angka2;
+    cout << FPB(angka, angka2)
 }
