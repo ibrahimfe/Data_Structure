@@ -36,6 +36,24 @@ int FPB(int m, int n)
     else
         return FPB(m % n, n);
 }
+int power(int m, int n)
+{
+    if (n == 1 || n == 0)
+        return m;
+    else
+        return m * power(m, n - 1);
+}
+void towers(int n, char awal, char akhir, char antara)
+{
+    if (n == 1)
+        printf("Pindahkan piringan 1 dari %c ke %c\n", awal, akhir);
+    else
+    {
+        towers(n - 1, awal, antara, akhir);
+        printf("Pindahkan piringan %d dari %c ke %c\n", n, awal, akhir);
+        towers(n - 1, antara, akhir, awal);
+    }
+}
 
 int main()
 {
