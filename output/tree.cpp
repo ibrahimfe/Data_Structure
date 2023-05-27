@@ -1,7 +1,10 @@
 #include <iostream>
+#include <queue>
 using namespace std;
 
-typedef struct Tree
+typedef struct myTree Tree;
+
+struct myTree
 {
     int data;
     Tree *left;
@@ -10,11 +13,11 @@ typedef struct Tree
 
 void init()
 {
-    pohon = NULL;
+    Tree *pohon = NULL;
 }
 void clear()
 {
-    pohon = NULL;
+    Tree *pohon = NULL;
 }
 int isEmpty(Tree *pohon)
 {
@@ -77,21 +80,28 @@ void postOrder(Tree *root)
         cout << root->data;
     }
 }
-void LevelOrder(Tree *root)
-{
-    Queue queue;
-    Enqueue(queue, root);
-    while (isEmpty(queue) != 1)
-    {
-        Tree n = GetQueue(); // visit
-        print(n->data);
-        if (n->left != NULL)
-            Enqueue(n->left); // Enqueue if exists
-        if (n->right != NULL)
-            Enqueue(n->right); // Enqueue if exists
-        Dequeue(queue);        // out
-    }
-}
+// void LevelOrder(Tree *root)
+// {
+//     queue<int> queue;
+//     Enqueue(queue, root);
+//     while (isEmpty(queue) != 1)
+//     {
+//         Tree n = GetQueue(); // visit
+//         print(n->data);
+//         if (n->left != NULL)
+//             Enqueue(n->left); // Enqueue if exists
+//         if (n->right != NULL)
+//             Enqueue(n->right); // Enqueue if exists
+//         Dequeue(queue);        // out
+//     }
+// }
+
+// void Dequeue(Queue *queue)
+// {
+//     Tree *node = queue->front;
+//     queue->front = queue->front->next;
+//     delete node;
+// }
 
 Tree *cari(Tree *root, int data)
 {
@@ -143,16 +153,34 @@ void leaf(Tree *root)
     if (root->right == NULL && root->left == NULL)
         printf("%d ", root->data);
 }
+void printCari(int angka, Tree *pohon)
+{
+    Tree *node = cari(pohon, angka);
+    if (node != NULL)
+    {
+        cout << "Angka Ditemukan!!" << endl;
+    }
+    else
+    {
+        cout << "Angka Tidak Ditemukan!!" << endl;
+    }
+}
 
+void printMin(Tree *pohon)
+{
+    Tree *minNode = FindMin(pohon);
+    cout << "Nilai Minimum dari sebuah tree adalah : " << minNode->data << endl;
+}
 int main()
 {
     Tree *pohon;
+    init();
     Tree *t = FindMin(pohon);
-    int pilihan;
+    int pilihan, angka;
 
     while (true)
     {
-        cout << "=======================================" << endl;
+        cout << "\n=======================================" << endl;
         cout << "                TREE                   " << endl;
         cout << "=======================================" << endl;
         cout << "1. Cek apakah tree kosong" << endl;
@@ -166,14 +194,16 @@ int main()
         cout << "9. Menghitung tinggi dari Tree" << endl;
         cout << "10. Mencari Nilai Minimum didalam tree" << endl;
         cout << "11. Menampilkan daun di dalam tree" << endl;
+        cout << "12. Keluar Dari Program"
 
-        cout << "Masukkann pilihan kamu : ";
+            cout
+             << "Masukkann pilihan kamu : ";
         cin >> pilihan;
 
         switch (pilihan)
         {
         case 1:
-            if isEmpty ()
+            if (isEmpty(pohon))
             {
                 cout << "List Kosong" << endl;
             }
@@ -183,8 +213,44 @@ int main()
             }
             break;
         case 2:
-
+            cout << "Masukkan angka yang ingin ditambahkan : " << endl;
+            cin >> angka;
+            tambah(&pohon, angka);
+            break;
+        case 3:
+            preOrder(pohon);
+            break;
+        case 4:
+            inOrder(pohon);
+            break;
+        case 5:
+            postOrder(pohon);
+            break;
+        case 6:
+            cout << "Still in Progress";
+            break;
+        case 7:
+            cout << "Masukkan angka yang ingin dicari : " << endl;
+            cin >> angka;
+            printCari(angka, pohon);
+            break;
+        case 8:
+            cout << "Banyaknya Nodes didalam Tree adalah : " << count(pohon) << endl;
+            break;
+        case 9:
+            cout << "Tinggi dari Tree adalah : " << height(pohon) << endl;
+            break;
+        case 10:
+            printMin(pohon);
+            break;
+        case 11:
+            leaf(pohon);
+            break;
+        case 12:
+            return 0;
         default:
+            cout << endl
+                 << "Tolong Masukkan Angka angka yang sesuai!!" << endl;
             break;
         }
     }
