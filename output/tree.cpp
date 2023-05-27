@@ -1,5 +1,5 @@
 #include <iostream>
-#include <queue>
+// #include <queue>
 using namespace std;
 
 typedef struct myTree Tree;
@@ -51,7 +51,44 @@ void tambah(Tree **root, int databaru)
     else if (databaru == (*root)->data)
         printf("Data sudah ada!");
 }
+void deleteNode(Tree *node)
+{
+    // Check if the node is null
+    if (node == NULL)
+    {
+        return;
+    }
+    // If the node is a leaf node, simply free it
+    if (node->left == NULL && node->right == NULL)
+    {
+        free(node);
+        return;
+    }
+    // If the node has only one child, replace it with the child
+    if (node->left == NULL)
+    {
+        node->right->parent = node->parent;
+        node->parent->left = node->right;
+    }
+    else if (node->right == NULL)
+    {
+        node->left->parent = node->parent;
+        node->parent->right = node->left;
+    }
+    else
+    {
+        // If the node has two children, find the inorder successor and replace the node with it
+        Tree *successor = node->right;
+        while (successor->left != NULL)
+        {
+            successor = successor->left;
+        }
 
+        // Replace the node with the successor
+        node->data = successor->data;
+        deleteNode(successor);
+    }
+}
 void preOrder(Tree *root)
 {
     if (root != NULL)
