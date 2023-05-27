@@ -39,14 +39,14 @@ int main()
         P->right = NULL;
         pointS[I] = P;
         cout << P->INFO << endl;
-        cout << "Alamat : " << pointS[I];
+        cout << "Alamat : " << pointS[I] << endl;
     }
 
     Q = FIRST;
     for (I = 0; I <= 4; I++)
     {
         R = Q;
-        cout << "Vertex : " << Q->INFO;
+        cout << "\nVertex : " << Q->INFO << endl;
         for (J = 0; J <= 4; J++)
         {
             if (A[I][J] != 0)
