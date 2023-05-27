@@ -231,10 +231,9 @@ int main()
         cout << "9. Menghitung tinggi dari Tree" << endl;
         cout << "10. Mencari Nilai Minimum didalam tree" << endl;
         cout << "11. Menampilkan daun di dalam tree" << endl;
-        cout << "12. Keluar Dari Program"
+        cout << "12. Keluar Dari Program";
 
-            cout
-             << "Masukkann pilihan kamu : ";
+        cout << "Masukkann pilihan kamu : ";
         cin >> pilihan;
 
         switch (pilihan)
