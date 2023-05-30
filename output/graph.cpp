@@ -7,6 +7,8 @@ typedef struct typeS
     int INFO;
     typeS *right;
 };
+
+// Declaration
 typedef struct typeS simpul;
 simpul *P, *FIRST, *LAST, *PVertex, *PEdge, *Q, *R, *S;
 simpul *pointS[5];
@@ -27,7 +29,7 @@ int main()
     P->right = NULL;
     pointS[0] = P;
     cout << P->INFO << endl;
-    cout << "Alamat : " << pointS[0];
+    cout << "Alamat : " << pointS[0] << endl;
 
     for (I = 1; I <= 4; I++)
     {
@@ -46,7 +48,7 @@ int main()
     for (I = 0; I <= 4; I++)
     {
         R = Q;
-        cout << "\nVertex : " << Q->INFO << endl;
+        cout << "Vertex : " << Q->INFO << endl;
         for (J = 0; J <= 4; J++)
         {
             if (A[I][J] != 0)
