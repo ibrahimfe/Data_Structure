@@ -90,10 +90,12 @@ public:
 
 void menu()
 {
+	cout << endl;
 	cout << "1. Display graph" << endl;
 	cout << "2. Implementasi BFS" << endl;
 	cout << "3. Implementasi DFS" << endl;
-	cout << "4. Exit" << endl;
+	cout << "4. Menambahkan Edge" << endl;
+	cout << "5. Exit" << endl;
 	cout << "=============================" << endl;
 	cout << "Masukkan pilihan anda : ";
 }
@@ -109,22 +111,34 @@ int main(int argc, char const *argv[])
 	graph.addEdge(2, 3);
 	graph.addEdge(3, 4);
 
-	string choice;
-	menu();
-	cin >> choice;
-	if (choice == "1")
+	int choice, node1, node2;
+	while (true)
 	{
-		graph.printGraph();
-	}
-	else if (choice == "2")
-	{
-		cout << "BFS :" << endl;
-		graph.BFS(1);
-	}
-	else if (choice == "3")
-	{
-		cout << "DFS :" << endl;
-		graph.DFS(1);
+		menu();
+		cin >> choice;
+
+		switch (choice)
+		{
+		case 1:
+			graph.printGraph();
+			break;
+		case 2:
+			graph.BFS(1);
+			break;
+		case 3:
+			graph.DFS(1);
+			break;
+		case 4:
+			cout << "Masukkan 2 Node yang dipisahkan oleh spasi : ";
+			cin >> node1 >> node2;
+			graph.addEdge(node1, node2);
+			break;
+		case 5:
+			return 0;
+		default:
+			cout << "Tolong masukkan angka yang tertera !!";
+			break;
+		}
 	}
 
 	return 0;
