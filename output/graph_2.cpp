@@ -120,12 +120,15 @@ int main(int argc, char const *argv[])
 		switch (choice)
 		{
 		case 1:
+			cout << ">>>> Graph <<<<" << endl;
 			graph.printGraph();
 			break;
 		case 2:
+			cout << ">>>> BFS <<<<" << endl;
 			graph.BFS(1);
 			break;
 		case 3:
+			cout << ">>>> DFS <<<<" << endl;
 			graph.DFS(1);
 			break;
 		case 4:
