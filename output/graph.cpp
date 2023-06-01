@@ -1,26 +1,29 @@
 #include <iostream>
 using namespace std;
 
-typedef struct typeS
+struct simpul
 {
-    typeS *left;
+    simpul *left;
     int INFO;
-    typeS *right;
+    simpul *right;
 };
 
 // Declaration
-typedef struct typeS simpul;
+typedef struct simpul simpul;
 simpul *P, *FIRST, *LAST, *PVertex, *PEdge, *Q, *R, *S;
 simpul *pointS[5];
 
 int main()
 {
-    int A[5][5] = {0, 5, 0, 2, 0, 6, 0, 3, 0, 0, 0, 0, 0, 0, 9, 0, 0, 12, 0, 7, 0, 14, 0, 0, 0};
+    int A[5][5] = {{0, 5, 0, 2, 0},
+                   {6, 0, 0, 3, 0},
+                   {0, 0, 0, 0, 0},
+                   {0, 0, 0, 0, 0},
+                   {9, 0, 12, 7, 14}};
     char NmS[6] = "ABCDE";
     int I, J;
 
-    I = 0;
-    J = 0;
+    // Initialize the first vertex
     P = new simpul;
     P->INFO = NmS[0];
     FIRST = P;
@@ -29,9 +32,10 @@ int main()
     P->right = NULL;
     pointS[0] = P;
     cout << P->INFO << endl;
-    cout << "Alamat : " << pointS[0] << endl;
+    cout << "Address: " << pointS[0] << endl;
 
-    for (I = 1; I <= 4; I++)
+    // Initialize the remaining vertices
+    for (I = 1; I < 5; I++)
     {
         P = new simpul;
         P->INFO = NmS[I];
@@ -41,15 +45,16 @@ int main()
         P->right = NULL;
         pointS[I] = P;
         cout << P->INFO << endl;
-        cout << "Alamat : " << pointS[I] << endl;
+        cout << "Address: " << pointS[I] << endl;
     }
 
+    // Print the graph
     Q = FIRST;
-    for (I = 0; I <= 4; I++)
+    for (I = 0; I < 5; I++)
     {
         R = Q;
-        cout << "Vertex : " << Q->INFO << endl;
-        for (J = 0; J <= 4; J++)
+        cout << "Vertex: " << Q->INFO << endl;
+        for (J = 0; J < 5; J++)
         {
             if (A[I][J] != 0)
             {
@@ -57,8 +62,8 @@ int main()
                 P->INFO = A[I][J];
                 R->right = P;
                 P->left = pointS[J];
-                cout << "Berhubungan dengan : " << P->left->INFO << endl;
-                cout << "Bobot : " << P->INFO << endl;
+                cout << "Connected to: " << P->left->INFO << endl;
+                cout << "Weight: " << P->INFO << endl;
                 P->right = NULL;
                 R = P;
             }
@@ -66,5 +71,6 @@ int main()
         cout << endl;
         Q = Q->left;
     }
+
     return 0;
 }
