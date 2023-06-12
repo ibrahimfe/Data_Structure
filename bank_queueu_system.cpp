@@ -1,48 +1,48 @@
 #include <iostream>
 using namespace std;
 
-typedef struct TNode
+typedef struct Customer
 {
-    int data;
-    TNode *next;
-    TNode *prev;
+    int ticketnumber;
+    Customer *next;
+    Customer *prev;
 };
 
-// Function to create a new TNode
-TNode *createNode(int data)
+// Function to create a new Customer
+Customer *createNode(int ticketnumber)
 {
-    TNode *newNode = new TNode();
-    newNode->data = data;
-    newNode->next = nullptr;
-    newNode->prev = nullptr;
-    return newNode;
+    Customer *newCustomer = new Customer;
+    newCustomer->ticketnumber = ticketnumber;
+    newCustomer->next = nullptr;
+    newCustomer->prev = nullptr;
+    return newCustomer;
 }
 
-// Function to insert a new TNode at the rear of the queue
-TNode *enqueue(TNode *rear, int data)
+// Function to insert a new Customer at the rear of the queue
+Customer *enqueue(Customer *rear, int ticketnumber)
 {
-    TNode *newNode = createNode(data);
+    Customer *newCustomer = createNode(ticketnumber);
 
     if (rear == nullptr)
     {
-        rear = newNode;
+        rear = newCustomer;
         rear->next = rear;
         rear->prev = rear;
     }
     else
     {
-        newNode->next = rear->next;
-        newNode->prev = rear;
-        rear->next->prev = newNode;
-        rear->next = newNode;
-        rear = newNode;
+        newCustomer->next = rear->next;
+        newCustomer->prev = rear;
+        rear->next->prev = newCustomer;
+        rear->next = newCustomer;
+        rear = newCustomer;
     }
 
     return rear;
 }
 
-// Function to remove a TNode from the front of the queue
-TNode *dequeue(TNode *rear)
+// Function to remove a Customer from the front of the queue
+Customer *dequeue(Customer *rear)
 {
     if (rear == nullptr)
     {
@@ -50,7 +50,7 @@ TNode *dequeue(TNode *rear)
         return nullptr;
     }
 
-    TNode *front = rear->next;
+    Customer *front = rear->next;
 
     if (rear == front)
     {
@@ -68,7 +68,7 @@ TNode *dequeue(TNode *rear)
 }
 
 // Function to display the queue
-void displayQueue(TNode *rear)
+void displayQueue(Customer *rear)
 {
     if (rear == nullptr)
     {
@@ -76,11 +76,11 @@ void displayQueue(TNode *rear)
         return;
     }
 
-    TNode *temp = rear->next;
+    Customer *temp = rear->next;
 
     do
     {
-        cout << temp->data << " ";
+        cout << temp->ticketnumber << " ";
         temp = temp->next;
     } while (temp != rear->next);
 
@@ -89,20 +89,21 @@ void displayQueue(TNode *rear)
 
 int main()
 {
-    TNode *rear = nullptr;
+    Customer *rear = nullptr;
 
     rear = enqueue(rear, 1);
     rear = enqueue(rear, 2);
     rear = enqueue(rear, 3);
 
+    cout << "Antrian saat ini : ";
     displayQueue(rear);
 
     rear = dequeue(rear);
-
+    cout << "Nomor urut 1 telah keluar, Update Antrian : ";
     displayQueue(rear);
 
     rear = enqueue(rear, 4);
-
+    cout << "Ada Antrian baru yang masuk, Update Antrian : ";
     displayQueue(rear);
 
     return 0;
