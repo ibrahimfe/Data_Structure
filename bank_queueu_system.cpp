@@ -94,17 +94,31 @@ int main()
     rear = enqueue(rear, 1);
     rear = enqueue(rear, 2);
     rear = enqueue(rear, 3);
+    rear = enqueue(rear, 4);
+    rear = enqueue(rear, 5);
+    rear = enqueue(rear, 6);
 
-    cout << "Antrian saat ini : ";
+    cout << "\nAntrian saat ini : ";
     displayQueue(rear);
 
     rear = dequeue(rear);
-    cout << "Nomor urut 1 telah keluar, Update Antrian : ";
+    cout << "\nNomor urut 1 telah keluar, Update Antrian : ";
     displayQueue(rear);
 
-    rear = enqueue(rear, 4);
-    cout << "Ada Antrian baru yang masuk, Update Antrian : ";
+    rear = enqueue(rear, 7);
+    rear = enqueue(rear, 8);
+    cout << "\nAda Antrian baru yang masuk, Update Antrian : ";
     displayQueue(rear);
 
+    rear = dequeue(rear);
+    rear = dequeue(rear);
+    rear = dequeue(rear);
+    cout << "\nNomor urut 2, 3, 4 telah keluar, Update Antrian : ";
+    displayQueue(rear);
+
+    rear = enqueue(rear, 9);
+    rear = dequeue(rear);
+    cout << "\nNomor uurut 5 telah keluar dan ada antrian baru yang masuk, Update Antrian : ";
+    displayQueue(rear);
     return 0;
 }
